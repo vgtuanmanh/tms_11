@@ -1,0 +1,20 @@
+<tr>
+  <th>
+    <%= user.id %> &nbsp;
+  </th>
+  <th>
+    <%= gravatar_for user, size: 50 %> &nbsp;
+  </th>
+  <th>
+    <%= link_to user.name, user %> &nbsp;
+  </th>
+  <th>
+    <%= link_to "Edit", "#", class: "btn btn-primary" %> &nbsp;
+  </th>
+  <th>
+    <% if current_user.admin? && !current_user?(user) %>
+      <%= link_to "Delete", user, class: "btn btn-primary",
+      classmethod: :delete, data: { confirm: "You sure?" } %> &nbsp;
+    <% end %>
+  <th>
+</tr>
