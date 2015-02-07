@@ -1,0 +1,23 @@
+<% provide(:title, @course.name) %>
+
+<div class="row">
+  <h1>
+    Course: <%= @course.name %>
+  </h1>
+
+  <h4>
+    Description:
+  </h4>
+
+  <h4>
+    <%= @course.description %>
+  </h4>
+
+  <h3 class = "green" >
+    Begin at: <%= @course.begin_at.to_date %>
+  </h3>
+
+  <h3 class = "red" >
+    End at: <%= @course.end_at.to_date %>
+  </h3>
+</div>
