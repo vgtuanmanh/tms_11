@@ -10,5 +10,16 @@
   <%= @subject.description %>
 </p>
 
+<div class="col-md-8">
+  <% if @subject.tasks.any? %>
+    <h3>Tasks (<%= @subject.tasks.count %>)</h3>
+    <ol class=tasks>
+      <% @subject.tasks.each do |task| %>
+        <li>Task : <%= task.name %></li>
+      <% end %>
+    </ol>
+  <% end %>
+</div>
+
 <%= link_to 'Edit', edit_subject_path(@subject) %> |
 <%= link_to 'Back', subjects_path %>
