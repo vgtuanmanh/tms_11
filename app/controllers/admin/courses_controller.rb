@@ -1,24 +1,24 @@
 class Admin::CoursesController < ApplicationController
-  def show
-    @course = Course.find params[:id]
-  end
-
   def new
     @course = Course.new
   end
 
+  def index
+    @courses = Course.paginate page: params[:page]
+  end
+
+  def show
+    @course = Course.find params[:id]
+  end
+
   def create
-    @course = Course.new(course_params)
+    @course = Course.new course_params
     if @course.save
       flash[:success] = "Create course successfully!"
-      redirect_to root_url
+      redirect_to admin_course_path(@course)
     else
       render 'new'
     end
-  end
-
-  def index
-    @courses = Course.all
   end
 
   private
