@@ -7,10 +7,13 @@ class SubjectsController < ApplicationController
   end
 
   def show
+    @subject = Subject.find params[:id]
+    @tasks = @subject.tasks.paginate(page: params[:page])
   end
 
   def new
     @subject = Subject.new
+    task = @subject.tasks.build
   end
 
   def edit
@@ -18,7 +21,6 @@ class SubjectsController < ApplicationController
 
   def create
     @subject = Subject.new subject_params
-
     respond_to do |format|
       if @subject.save
         format.html { redirect_to @subject, notice: 'Subject was successfully created.' }
@@ -51,18 +53,19 @@ class SubjectsController < ApplicationController
   end
 
   private
-    def set_subject
-      @subject = Subject.find params[:id]
-    end
+  def set_subject
+    @subject = Subject.find params[:id]
+  end
 
-    def subject_params
-      params.require(:subject).permit(:name, :description)
-    end
+  def subject_params
+    params.require(:subject).permit(:name, :description,
+    tasks_attributes: [:name, :id, :_destroy])
+  end
 
-    def check_admin_user 
-      if !current_user || (current_user && !current_user.admin?)
-        flash[:danger] = 'You are not'
-        redirect_to root_path
-      end
+  def check_admin_user
+    if !current_user || (current_user && !current_user.admin?)
+      flash[:danger] = 'You are not'
+      redirect_to root_path
     end
+  end
 end

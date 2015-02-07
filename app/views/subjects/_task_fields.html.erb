@@ -1,0 +1,6 @@
+<p class = "fields">
+  <%= f.label :name, "Task" %><br />
+  <%= f.text_area :name %><br />
+  <%= f.hidden_field :_destroy %>
+  <%= link_to "remove", "javascript:void(0);", onclick: "remove_fields(this)" %>
+</p>
