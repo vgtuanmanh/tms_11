@@ -36,7 +36,7 @@ gem 'spring', group: :development
 # gem 'capistrano-rails', group: :development
 
 # Use debugger
-#gem 'byebug', group: [:development, :test]
+gem 'byebug', group: [:development, :test]
 
 gem 'bootstrap-sass', '3.2.0.0'
 gem 'bcrypt', '3.1.7'
