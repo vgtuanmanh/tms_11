@@ -15,7 +15,7 @@ class Admin::CoursesController < ApplicationController
     @course = Course.new course_params
     if @course.save
       flash[:success] = "Create course successfully!"
-      redirect_to admin_course_path(@course)
+      redirect_to admin_courses_url
     else
       render 'new'
     end
@@ -23,6 +23,7 @@ class Admin::CoursesController < ApplicationController
 
   private
   def course_params
-    params.require(:course).permit(:name, :description, :begin_at, :end_at)
+    params.require(:course).permit(:name, :description, :begin_at, :end_at,
+                    course_subjects_attributes: [:id, :subject_id, :_destroy])
   end
 end

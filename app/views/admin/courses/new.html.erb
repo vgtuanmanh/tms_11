@@ -1,27 +1,5 @@
-<% provide(:title, 'Make a new course') %>
+<% provide(:title, "Make a new course") %>
 
 <h1>Make A New Course</h1>
 
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <%= form_for([:admin, @course]) do |f| %>
-      <%= render 'shared/error_messages', obj: f.object %>
-
-      <%= f.label :name %>
-      <%= f.text_field :name, class: 'form_control' %>
-
-      <%= f.label :description %>
-      <%= f.text_area :description, class: 'form_control' %>
-
-      <%= f.label :begin_at %>
-      <%= f.date_select :begin_at, :start_year => Date.current.year,
-                   :end_year => Date.current.year + 5, class: 'form-control' %>
-
-      <%= f.label :end_at %>
-      <%= f.date_select :end_at, :start_year => Date.current.year,
-                    :end_year => Date.current.year + 5, class: 'form-control' %>
-
-      <%= f.submit "Make a new course", class: "btn btn-primary" %>
-    <% end %>
-  </div>
-</div>
+<%= render 'form' %>

@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150206085430) do
+ActiveRecord::Schema.define(version: 20150210071223) do
+
+  create_table "course_subjects", force: true do |t|
+    t.integer  "course_id"
+    t.integer  "subject_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "course_subjects", ["course_id", "subject_id"], name: "index_course_subjects_on_course_id_and_subject_id", unique: true, using: :btree
+  add_index "course_subjects", ["course_id"], name: "index_course_subjects_on_course_id", using: :btree
+  add_index "course_subjects", ["subject_id"], name: "index_course_subjects_on_subject_id", using: :btree
 
   create_table "courses", force: true do |t|
     t.string   "name"
@@ -30,11 +41,25 @@ ActiveRecord::Schema.define(version: 20150206085430) do
   end
 
   create_table "tasks", force: true do |t|
+    t.text     "name"
     t.integer  "subject_id"
-    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "tasks", ["subject_id"], name: "index_tasks_on_subject_id", using: :btree
+
+  create_table "user_tasks", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "task_id"
+    t.boolean  "status"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "user_tasks", ["task_id"], name: "index_user_tasks_on_task_id", using: :btree
+  add_index "user_tasks", ["user_id", "task_id"], name: "index_user_tasks_on_user_id_and_task_id", unique: true, using: :btree
+  add_index "user_tasks", ["user_id"], name: "index_user_tasks_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"

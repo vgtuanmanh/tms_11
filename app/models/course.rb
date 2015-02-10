@@ -7,6 +7,10 @@ class Course < ActiveRecord::Base
   validate :end_at_must_greater_than_or_equal_to_begin_at
   validate :begin_at_must_greater_than_or_equal_to_current_date
 
+  has_many :course_subjects
+  has_many :subjects, through: :course_subjects
+  accepts_nested_attributes_for :course_subjects, allow_destroy: true
+
   def end_at_must_greater_than_or_equal_to_begin_at
     if end_at < begin_at
       erros.add_to_base('End date must greater than or equal to Begin date!')   
