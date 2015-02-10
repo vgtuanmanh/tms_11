@@ -1,20 +1,21 @@
 <tr>
   <th>
-    <%= user.id %> &nbsp;
-  </th>
-  <th>
     <%= gravatar_for user, size: 50 %> &nbsp;
   </th>
   <th>
     <%= link_to user.name, user %> &nbsp;
   </th>
   <th>
-    <%= link_to "Edit", edit_admin_user_path(user), class: "btn btn-primary" %> &nbsp;
+    <%= link_to "View Details", user, class: "btn btn-primary" %> &nbsp;
   </th>
   <th>
-    <% if current_user.admin? && !current_user?(user) %>
+    <%= link_to "Edit", edit_admin_user_path(user), class: "btn btn-primary" %>
+    &nbsp;
+  </th>
+  <th>
+    <% if current_user.admin? && !current_user?(user) && !user.admin %>
       <%= link_to "Delete", admin_user_path(user), class: "btn btn-primary",
-      method: :delete, data: { confirm: "Are You sure?" } %> &nbsp;
+      method: :delete, data: {confirm: "Are You sure?"} %> &nbsp;
     <% end %>
   <th>
 </tr>
