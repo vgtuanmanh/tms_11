@@ -62,12 +62,30 @@ h2 {
   color: #777;
 }
 
+h2.red {
+  color: #c13b37;
+}
+
+h2.green {
+  color: #648b36;
+}
+
 h3.red {
   color: #c13b37
 }
 
 h3.green {
   color: #648b36
+}
+
+h3.red.small {
+  color: #c13b37;
+  font-size: 0.9em;
+}
+
+h3.green.small {
+  color: #648b36;
+  font-size: 0.9em;
 }
 
 p {
