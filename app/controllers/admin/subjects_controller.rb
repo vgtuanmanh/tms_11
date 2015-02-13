@@ -1,5 +1,5 @@
-class SubjectsController < ApplicationController
-  before_action :set_subject, only: [:show, :edit, :update, :destroy]
+class Admin::SubjectsController < ApplicationController
+	before_action :set_subject, only: [:show, :edit, :update, :destroy]
   before_action :check_admin_user, only: [:create, :destroy, :new]
 
   def index
@@ -17,13 +17,14 @@ class SubjectsController < ApplicationController
   end
 
   def edit
+  	@subject = Subject.find params[:id]
   end
 
   def create
     @subject = Subject.new subject_params
     respond_to do |format|
       if @subject.save
-        format.html { redirect_to @subject, notice: 'Subject was successfully created.' }
+        format.html { redirect_to [:admin, @subject], notice: 'Subject was successfully created.' }
         format.json { render :show, status: :created, location: @subject }
       else
         format.html { render :new }
@@ -34,8 +35,8 @@ class SubjectsController < ApplicationController
 
   def update
     respond_to do |format|
-      if @subject.update(subject_params)
-        format.html { redirect_to @subject, notice: 'Subject was successfully updated.' }
+      if @subject.update_attributes subject_params
+        format.html { redirect_to [:admin, @subject], notice: 'Subject was successfully updated.' }
         format.json { render :show, status: :ok, location: @subject }
       else
         format.html { render :edit }
@@ -47,7 +48,7 @@ class SubjectsController < ApplicationController
   def destroy
     @subject.destroy
     respond_to do |format|
-      format.html { redirect_to subjects_url, notice: 'Subject was successfully destroyed.' }
+      format.html { redirect_to admin_subjects_url, notice: 'Subject was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

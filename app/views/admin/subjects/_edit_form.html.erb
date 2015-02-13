@@ -1,0 +1,32 @@
+<% provide(:title, "Edit subject") %>
+<h1>Edit subject </h1>
+<%= form_for [:admin, @subject] do |f| %>
+  <% if @subject.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@subject.errors.count, "error") %> prohibited this subject from being saved:</h2>
+
+      <ul>
+      <% @subject.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+
+  <%= f.fields_for :tasks do |task| %>
+    <%= render "task_fields", f: task %>
+  <% end %>
+
+  <p><%= add_task_button f, :tasks %></p>
+  <%= f.submit "Save", class: "btn btn-primary" %>
+<% end %>
