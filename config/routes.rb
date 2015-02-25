@@ -1,4 +1,16 @@
 Rails.application.routes.draw do
+  namespace :admin do
+  get 'assignment/new'
+  end
+
+  namespace :admin do
+  get 'assignment/create'
+  end
+
+  get 'assignment/new'
+
+  get 'assignment/create'
+
   resources :subjects
 
   root             'static_pages#home'
@@ -12,7 +24,9 @@ Rails.application.routes.draw do
   resources :users
   namespace :admin do
     resources :users
-    resources :courses
+    resources :courses do
+      resources :assignment
+    end
     resources :subjects
   end
 end

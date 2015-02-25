@@ -13,11 +13,24 @@
     <%= @course.description %>
   </h4>
 
-  <h3 class = "green" >
+  <h4>
     Begin at: <%= @course.begin_at.to_date %>
-  </h3>
+  </h4>
 
-  <h3 class = "red" >
+  <h4>
     End at: <%= @course.end_at.to_date %>
-  </h3>
+  </h4>
 </div>
+
+<h1>
+  List user attend this course
+</h1>
+<table>
+  <tr><th>Name</th><th></th></tr>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= link_to "view user", user %></td>
+    </tr>
+  <% end %>
+</table>

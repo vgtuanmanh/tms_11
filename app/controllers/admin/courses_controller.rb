@@ -9,6 +9,15 @@ class Admin::CoursesController < ApplicationController
 
   def show
     @course = Course.find params[:id]
+    @users = @course.users
+  end
+
+  def update
+    @course = Course.find params[:id]
+    @course.update_attributes course_params
+    @course.save
+    @users = @course.users
+    render :show
   end
 
   def create
@@ -24,6 +33,6 @@ class Admin::CoursesController < ApplicationController
   private
   def course_params
     params.require(:course).permit(:name, :description, :begin_at, :end_at,
-                    course_subjects_attributes: [:id, :subject_id, :_destroy])
+      user_ids: [], course_subjects_attributes: [:id, :subject_id, :_destroy])
   end
 end
