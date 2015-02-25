@@ -20,4 +20,13 @@ Course.create! name: "Traning Basic Ruby",
                         begin_at: "2016-01-08",
                         end_at:   "2017-02-15"
 
+Subject.create! name: "Chapter 1",
+                        description: "Mo dau"
+Subject.create! name: "Chapter 2",
+                        description: "Phan 2"
+
+Task.create! name: "Cu Phap",
+                        subject_id: 1
+
+CourseSubject.create! course_id: Course.first.id, subject_id: Subject.first.id
 CourseUser.create! user_id: User.first.id, course_id: Course.first.id
