@@ -1,4 +1,5 @@
 class Admin::CoursesController < ApplicationController
+  before_action :is_admin_user, only: [:create, :destroy, :new]
 
   def new
     @course = Course.new
@@ -17,7 +18,7 @@ class Admin::CoursesController < ApplicationController
     @course = Course.new course_params
     if @course.save
       flash[:success] = "Create course successfully!"
-      redirect_to admin_courses_url
+      redirect_to admin_course_path(@course)
     else
       render 'new'
     end
@@ -44,6 +45,10 @@ class Admin::CoursesController < ApplicationController
   end
 
   private
+  def is_admin_user
+    redirect_to root_url unless admin_user?
+  end
+
   def course_params
     params.require(:course).permit(:name, :description, :begin_at, :end_at,
                                    course_subjects_attributes: [:id, :subject_id,:_destroy])
