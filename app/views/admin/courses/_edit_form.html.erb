@@ -1,0 +1,41 @@
+<%= form_for([:admin, @course]) do |f| %>
+  <%= render "shared/error_messages", obj: f.object %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+
+  <div>
+    <table class="table">
+      <th>
+        <%= f.label :begin_at %>
+        <%= f.date_select :begin_at, start_year: Date.current.year,
+               end_year: Date.current.year + 5, class: 'form-control' %>
+      </th>
+      <th>
+        <%= f.label :end_at %>
+        <%= f.date_select :end_at, start_year: Date.current.year,
+                end_year: Date.current.year + 5, class: 'form-control' %>
+      </th>
+    </table>
+  </div>
+
+  <p>
+    Choice Subjects for Course
+  </p>
+
+  <%= f.collection_check_boxes :subject_ids, Subject.all, :id, :name do |b| %>
+    <%= b.label do %>
+      <%= b.text %>
+      <%= b.check_box %>
+    <% end %>
+  <% end %>
+  
+  <%= f.submit "Save Edit", class: "btn btn-primary" %>
+<% end %>

@@ -15,18 +15,14 @@
         <td><%= subject.name %></td>
         <td><%= subject.description %></td>
         <td>
-          <% if current_user %>
-          <%= link_to 'Show', admin_subject_path(subject) %>
-          <% end %></td>
+          <%= link_to_if current_user, 'Show', subject %>
+        </td>
         <td>
-          <% if current_user && current_user.admin? %>
-          <%= link_to 'Edit', edit_admin_subject_path(subject) %>
-          <% end %>
+          <%= link_to_if current_user && current_user.admin?, 'Edit', edit_subject_path(subject) %>
         </td>
         <td>
           <% if current_user && current_user.admin? %>
-          <%= link_to 'Destroy', admin_subject_path(subject), 
-          method: :delete, data: {confirm: 'Are you sure?' } %>
+          <%= link_to 'Destroy', subject, method: :delete, data: {confirm: 'Are you sure?'} %>
           <% end %>
         </td>
       </tr>
