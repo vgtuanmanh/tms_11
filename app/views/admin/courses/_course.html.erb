@@ -17,10 +17,14 @@
     class: 'btn btn-primary') %>
   </th>
   <th>
+    <%= link_to "Assign Members", new_admin_course_assignment_path(course), 
+                                  class: "btn btn-primary" %> &nbsp;
+  </th>
+  <th>
     <%= link_to_if(current_user.admin?, "Delete", 
                                     admin_course_path(course), 
                                     class: "btn btn-primary", 
                                     method: :delete, 
                                     data: {confirm: "You sure?"}) %>
-  <th>
+  </th>
 </tr>

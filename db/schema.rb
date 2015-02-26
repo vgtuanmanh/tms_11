@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150213105245) do
+ActiveRecord::Schema.define(version: 20150226034846) do
+
+  create_table "assignments", force: true do |t|
+    t.integer  "course_id"
+    t.integer  "user_id"
+    t.integer  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "course_subjects", force: true do |t|
     t.integer  "course_id"
@@ -53,13 +61,11 @@ ActiveRecord::Schema.define(version: 20150213105245) do
   end
 
   create_table "tasks", force: true do |t|
-    t.text     "name"
     t.integer  "subject_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
-
-  add_index "tasks", ["subject_id"], name: "index_tasks_on_subject_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"

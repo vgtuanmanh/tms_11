@@ -1,0 +1,9 @@
+<% provide(:title, "Assign Members") %>
+<h1>Assign Members to Course</h1>
+
+<%= render 'form' %>
+<br><br>
+<%= link_to 'View Course Details', admin_course_path(@course),
+  class: "btn btn-primary" %>
+<%= link_to 'Back To Course Manager', admin_courses_path,
+  class: "btn btn-primary" %>
