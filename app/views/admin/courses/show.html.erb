@@ -20,9 +20,24 @@
   <h3 class = "red" >
     End at: <%= @course.end_at.to_date %>
   </h3>
+  <br>
+  <%= link_to 'Edit Course', edit_admin_course_path(@course),
+    class: "btn btn-primary" %>
 </div>
 
-<div>
-  <%= link_to "Edit", edit_admin_course_path(@course) %> |
-  <%= link_to "Back", admin_courses_path %>
-</div>
+<h1>
+  List members is attend this course
+</h1>
+<table>
+  <tr><th>Name</th><th></th></tr>
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.name %></td>
+      <td><%= link_to "view user", user %></td>
+    </tr>
+  <% end %>
+</table>
+<%= link_to "Assign Members", new_admin_course_assignment_path(@course),
+                                  class: "btn btn-primary" %>
+<br><br>
+<%= link_to "Back", admin_courses_path, class: "btn btn-primary" %>
