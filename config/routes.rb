@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  namespace :admin do
+  get 'assignments/new'
+  end
+
+  resources :subjects
 
   root             'static_pages#home'
   get 'help'    => 'static_pages#help'
@@ -18,7 +23,9 @@ Rails.application.routes.draw do
   end
   namespace :admin do
     resources :users
-    resources :courses
+    resources :courses do
+      resources :assignments
+    end
     resources :subjects
     resources :course_users
   end

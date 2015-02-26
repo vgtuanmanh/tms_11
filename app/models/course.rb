@@ -18,6 +18,10 @@ class Course < ActiveRecord::Base
   def course_subject_id subject
     CourseSubject.where(course: self, subject: subject).first.try(:id)
   end
+  
+  has_many :assignments, dependent: :destroy
+  has_many :users, through: :assignments
+  accepts_nested_attributes_for :users, allow_destroy: true
 
   def end_at_must_greater_than_or_equal_to_begin_at
     if end_at < begin_at

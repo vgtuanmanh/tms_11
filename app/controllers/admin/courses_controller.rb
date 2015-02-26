@@ -12,6 +12,19 @@ class Admin::CoursesController < ApplicationController
 
   def show
     @course = Course.find params[:id]
+    @users = @course.users
+  end
+
+  def update
+    @course = Course.find params[:id]
+    @course.update_attributes course_params
+    if @course.save
+      flash[:success] = "Update successfully!"
+      @users = @course.users
+      redirect_to admin_course_path(@course)
+    else
+      redirect_to admin_courses_url
+    end
   end
 
   def create
@@ -28,16 +41,6 @@ class Admin::CoursesController < ApplicationController
     @course = Course.find params[:id]
   end
 
-  def update
-    @course = Course.find params[:id]
-    if @course.update_attributes course_params
-      flash[:success] = "Course Updated"
-      redirect_to admin_courses_path(@course)
-    else
-      render :edit
-    end
-  end
-
   def destroy
     Course.find(params[:id]).destroy
     flash[:success] = "Course deleted"
@@ -51,6 +54,7 @@ class Admin::CoursesController < ApplicationController
 
   def course_params
     params.require(:course).permit(:name, :description, :begin_at, :end_at,
-                                   course_subjects_attributes: [:id, :subject_id,:_destroy])
+        user_ids:[], subject_ids:[],
+        course_subjects_attributes: [:id, :subject_id, :_destroy])
   end
 end
