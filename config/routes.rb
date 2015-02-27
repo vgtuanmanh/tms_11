@@ -2,8 +2,10 @@ Rails.application.routes.draw do
   namespace :admin do
   get 'assignments/new'
   end
-
-  resources :subjects
+  get 'assign/new'
+  get 'assign/update'
+  get 'assign/destroy'
+  get 'assign/show'
 
   root             'static_pages#home'
   get 'help'    => 'static_pages#help'

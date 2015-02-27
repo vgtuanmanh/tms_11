@@ -1,0 +1,45 @@
+<% provide(:title, 'All courses') %>
+<h1>All Courses Assigned</h1>
+<p>Name:<b><%= current_user.name %></b></p>
+<p>Email:<b><%= current_user.email %></b></p>
+
+<table class="table">
+  <div class="course">
+    <tr>
+      <th>
+        <b>Course_ID</b>
+      </th>
+      <th>
+        <b>Name</b>
+      </th>
+      <th>
+        <b>Description</b>
+      </th>
+      <th>
+        <b>Begin at</b>
+      </th>
+      <th>
+        <b>End at</b>
+      </th>
+    </tr>
+    <% @courses.each do |course| %>
+      <tr>
+        <th>
+          <%= course.id %> &nbsp;
+        </th>
+        <th>
+          <%= link_to course.name, admin_course_path(course) %> &nbsp;
+        </th>
+        <th>
+          <%= course.description %> &nbsp;
+        </th>
+        <th>
+          <%= course.begin_at %> &nbsp;
+        </th>
+        <th>
+          <%= course.end_at %> &nbsp;
+        </th>
+      </tr>
+      <% end %>
+  </div>
+</table>

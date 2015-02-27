@@ -45,7 +45,6 @@ class User < ActiveRecord::Base
     .where(assignments: {course: course, status: [0, 1]})}
   scope :finished_all_courses, ->{includes(:assignments)
     .where(assignments: {status: 2})}
-  scope :assignable, ->(course) {User.in_course(course) 
-    + User.free_user 
-    + User.finished_all_courses}
+  scope :assignable, ->(course) {
+    User.in_course(course) + User.free_user + User.finished_all_courses}
 end
