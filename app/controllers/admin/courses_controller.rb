@@ -13,6 +13,7 @@ class Admin::CoursesController < ApplicationController
   def show
     @course = Course.find params[:id]
     @users = @course.users
+    @subjects = @course.subjects
   end
 
   def update

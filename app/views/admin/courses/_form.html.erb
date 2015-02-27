@@ -30,17 +30,10 @@
     Choice Subjects for Course
   </p>
 
-  <% Subject.all.each do |subject| %>
-    <%= f.fields_for :course_subjects, subject do |course_subject_builder| %>
-      <%= course_subject_builder.label :_destroy do %>
-        <p>
-          <%= subject.name %>
-          <%= course_subject_builder.check_box :_destroy, {checked: false}, false, true %>
-        </p>
-      <% end %>
-
-      <%= course_subject_builder.hidden_field :subject_id, value: subject.id %>
-      <%= course_subject_builder.hidden_field :id, value: nil %>
+  <%= f.collection_check_boxes :subject_ids, Subject.all, :id, :name do |b| %>
+    <%= b.label do %>
+      <%= b.text %>
+      <%= b.check_box %>
     <% end %>
   <% end %>
 

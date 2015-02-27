@@ -2,9 +2,10 @@ class Course < ActiveRecord::Base
 
   has_many :course_subjects
   has_many :subjects, through: :course_subjects
-
   has_many :course_users, dependent: :destroy
   has_many :users, through: :course_users
+  has_many :assignments, dependent: :destroy
+  has_many :users, through: :assignments
 
   validates :name,  presence: true, length: {maximum: 64}
   validates :description, presence: true, length: {maximum: 512}
@@ -19,13 +20,11 @@ class Course < ActiveRecord::Base
     CourseSubject.where(course: self, subject: subject).first.try(:id)
   end
   
-  has_many :assignments, dependent: :destroy
-  has_many :users, through: :assignments
   accepts_nested_attributes_for :users, allow_destroy: true
 
   def end_at_must_greater_than_or_equal_to_begin_at
     if end_at < begin_at
-      erros.add_to_base('End date must greater than or equal to Begin date!')   
+      erros.add_to_base('End date must greater than or equal to Begin date!')
     end
   end
 

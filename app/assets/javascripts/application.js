@@ -17,7 +17,7 @@
 //= require bootstrap
 
 function remove_fields(field) {
-  $(field).previous().value = "true";
+  $(field).prev().val("true");
   $(field).parent().hide();
 }
 
