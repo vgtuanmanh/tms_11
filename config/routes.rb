@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'subjects/show'
+
   namespace :admin do
   get 'assignments/new'
   end

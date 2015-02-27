@@ -1,14 +1,9 @@
-class CoursesController < ApplicationController
+class SubjectsController < ApplicationController
   before_action :logged_in_user
 
-  def index
-    @courses = current_user.courses
-  end
-
   def show
-    @course = Course.find params[:id]
-    @subjects = @course.subjects
-    @users = @course.users
+    @subject = Subject.find params[:id]
+    
   end  
 
   private
