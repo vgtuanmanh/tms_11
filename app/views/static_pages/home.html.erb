@@ -11,6 +11,8 @@
     From trimalo team!
   </h2>
   <% if !logged_in? %>
+    <%= link_to "Log in", login_path, class: "btn btn-lg btn-primary" %>
+    Or
     <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
   <% end %>
 </div>
