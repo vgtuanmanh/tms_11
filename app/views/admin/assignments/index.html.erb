@@ -1,0 +1,43 @@
+<% provide(:title, "") %>
+<h1>List of Members in This Course</h1>
+<div>
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>User Name</th>
+        <th colspan="3"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td>
+            <%= user.name %> &nbsp;
+          </td>
+          <% if user.admin? %>
+            <td>
+              <%= "Admin" %> &nbsp;
+            </td>
+          <% else %>
+            <td>
+              <%= "" %> &nbsp;
+            </td>
+          <% end %>
+          <td>
+            <%= link_to "View User Profile", user %> &nbsp;
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+  </table>
+</div>
+<div>
+  <%= link_to 'Assign Members', new_admin_course_assignment_path(@course),
+    class: "btn btn-primary" %>
+  <%= link_to 'View Course Details', admin_course_path(@course),
+    class: "btn btn-primary" %>
+  <%= link_to 'Back To Course Manager', admin_courses_path,
+    class: "btn btn-primary" %>
+</div>
+</div>

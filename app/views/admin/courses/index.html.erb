@@ -11,5 +11,5 @@
 </table>
 <%= will_paginate %>
 
-<%= link_to_if(current_user && current_user.admin?, 'Add New Course',
-                                        new_admin_course_path) %>
+<%= link_to_if(current_user && current_user.admin?, 'Create A New Course',
+  new_admin_course_path, class: "btn btn-primary") %>

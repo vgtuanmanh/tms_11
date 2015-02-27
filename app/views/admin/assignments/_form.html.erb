@@ -3,11 +3,18 @@
   <div class="row">
     <div class="col-md-4 col-md-offset-4">
       <table class="table">
+        <thead>
+          <tr>
+            <th>User Name</th>
+            <th colspan="3"></th>
+          </tr>
+        </thead>
         <%= f.collection_check_boxes :user_ids, @users, :id, :name do |b| %>
           <tr>
             <%= b.label do %>
-              <th><%= b.text %></th>
-              <th class="selection_checkbox"><%= b.check_box %></th>
+              <td><%= b.text %></td>
+              <td><%= '(Admin)' if b.object.admin? %></td>
+              <td class="selection_checkbox"><%= b.check_box %></td>
             <% end %>
           </tr>
         <% end %>
