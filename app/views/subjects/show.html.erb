@@ -1,0 +1,26 @@
+<% provide(:title, @subject.name) %>
+<h1>
+  Show Subject Details: <%= @subject.name %>
+</h1>
+
+<h3>
+  <strong>Name:</strong>
+  <%= @subject.name %>
+</h3>
+
+<h3>
+  <strong>Description:</strong>
+  <%= @subject.description %>
+</h3>
+
+<% if @subject.tasks.any? %>
+  <h3>
+    <strong>List tasks: </strong>
+    <%= @subject.tasks.count %> tasks
+  </h3>
+  <ol class=tasks>
+    <% @subject.tasks.each do |task| %>
+      <li> <%= task.name %></li>
+    <% end %>
+  </ol>
+<% end %>
