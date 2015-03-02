@@ -9,11 +9,15 @@ class User < ActiveRecord::Base
   has_secure_password
   validates :password, length: {minimum: 6}, allow_blank: true
 
-  has_many :course_users, dependent: :destroy
-  has_many :courses, through: :course_users
-
   has_many :assignments, dependent: :destroy
   has_many :courses, through: :assignments
+  has_many :user_subjects, dependent: :destroy
+  has_many :subjects, through: :user_subjects
+  has_many :user_tasks, dependent: :destroy
+  has_many :tasks, through: :user_tasks
+
+  accepts_nested_attributes_for :subjects, allow_destroy: true
+  accepts_nested_attributes_for :tasks, allow_destroy: true
 
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :

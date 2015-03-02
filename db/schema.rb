@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226034846) do
+ActiveRecord::Schema.define(version: 20150303011635) do
 
   create_table "assignments", force: true do |t|
     t.integer  "course_id"
@@ -31,18 +31,6 @@ ActiveRecord::Schema.define(version: 20150226034846) do
   add_index "course_subjects", ["course_id", "subject_id"], name: "index_course_subjects_on_course_id_and_subject_id", unique: true, using: :btree
   add_index "course_subjects", ["course_id"], name: "index_course_subjects_on_course_id", using: :btree
   add_index "course_subjects", ["subject_id"], name: "index_course_subjects_on_subject_id", using: :btree
-
-  create_table "course_users", force: true do |t|
-    t.integer  "course_id"
-    t.integer  "user_id"
-    t.boolean  "status"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "course_users", ["course_id", "user_id"], name: "index_course_users_on_course_id_and_user_id", unique: true, using: :btree
-  add_index "course_users", ["course_id"], name: "index_course_users_on_course_id", using: :btree
-  add_index "course_users", ["user_id"], name: "index_course_users_on_user_id", using: :btree
 
   create_table "courses", force: true do |t|
     t.string   "name"
@@ -67,7 +55,25 @@ ActiveRecord::Schema.define(version: 20150226034846) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "tasks", ["subject_id"], name: "index_tasks_on_subject_id", using: :btree
+  create_table "user_subjects", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "subject_id"
+    t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "user_subjects", ["subject_id", "user_id"], name: "index_user_subjects_on_subject_id_and_user_id", unique: true, using: :btree
+  add_index "user_subjects", ["subject_id"], name: "index_user_subjects_on_subject_id", using: :btree
+  add_index "user_subjects", ["user_id"], name: "index_user_subjects_on_user_id", using: :btree
+
+  create_table "user_tasks", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "task_id"
+    t.boolean  "status"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "name"

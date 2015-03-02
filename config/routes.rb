@@ -20,7 +20,7 @@ Rails.application.routes.draw do
 
   resources :subjects
   resources :users do
-    resources :courses, only: [:index]
+    resources :courses, only: [:index, :show]
   end
   resources :courses do
     resources :users, only: [:index]

@@ -3,7 +3,7 @@ class CreateCourseUsers < ActiveRecord::Migration
     create_table :course_users do |t|
       t.integer :course_id
       t.integer :user_id
-      t.boolean :status
+      t.integer :status
 
       t.timestamps
     end

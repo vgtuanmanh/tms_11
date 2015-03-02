@@ -18,15 +18,18 @@
         <th>
           <%= link_to course.name, course_path(course) %> &nbsp;
         </th>
-        <td>
+        <th>
+          <%= link_to course.name, course_path(course) %> &nbsp;
+        </th>
+        <th>
           <%= course.description %> &nbsp;
-        </td>
-        <td>
+        </th>
+        <th>
           <%= course.begin_at %> &nbsp;
-        </td>
-        <td>
+        </th>
+        <th>
           <%= course.end_at %> &nbsp;
-        </td>
+        </th>
       </tr>
       <% end %>
     </tbody>
