@@ -1,4 +1,5 @@
 class Admin::CoursesController < ApplicationController
+  before_action :logged_in_user
   before_action :is_admin_user, only: [:create, :destroy, :new]
 
   def new
@@ -24,7 +25,7 @@ class Admin::CoursesController < ApplicationController
       @users = @course.users
       redirect_to admin_course_path(@course)
     else
-      redirect_to admin_courses_url
+      redirect_to admin_courses_path
     end
   end
 
@@ -57,5 +58,13 @@ class Admin::CoursesController < ApplicationController
     params.require(:course).permit(:name, :description, :begin_at, :end_at,
         user_ids:[], subject_ids:[],
         course_subjects_attributes: [:id, :subject_id, :_destroy])
+  end
+
+  def logged_in_user
+    unless logged_in?
+      store_location
+      flash[:danger] = "Please log in!"
+      redirect_to login_url
+    end
   end
 end

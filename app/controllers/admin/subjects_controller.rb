@@ -1,4 +1,5 @@
 class Admin::SubjectsController < ApplicationController
+  before_action :logged_in_user
 	before_action :set_subject, only: [:show, :edit, :update, :destroy]
   before_action :check_admin_user, only: [:create, :destroy, :new]
 
@@ -67,6 +68,14 @@ class Admin::SubjectsController < ApplicationController
     if !current_user || (current_user && !current_user.admin?)
       flash[:danger] = 'You are not'
       redirect_to root_path
+    end
+  end
+
+  def logged_in_user
+    unless logged_in?
+      store_location
+      flash[:danger] = "Please log in!"
+      redirect_to login_url
     end
   end
 end

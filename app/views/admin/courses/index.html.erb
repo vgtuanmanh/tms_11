@@ -3,6 +3,11 @@
 
 <%= will_paginate %>
 <table class="table">
+  <thead>
+    <th>Name</th>
+    <th>Description</th>
+    <th colspan="6"></th>
+  </thead>
   <div class="course">
     <% @courses.each do |course| %>
       <%= render course %>

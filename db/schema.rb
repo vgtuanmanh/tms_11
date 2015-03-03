@@ -61,11 +61,13 @@ ActiveRecord::Schema.define(version: 20150226034846) do
   end
 
   create_table "tasks", force: true do |t|
+    t.text     "name"
     t.integer  "subject_id"
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
+
+  add_index "tasks", ["subject_id"], name: "index_tasks_on_subject_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "name"
