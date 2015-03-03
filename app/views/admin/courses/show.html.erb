@@ -1,52 +1,93 @@
 <% provide(:title, @course.name) %>
 
-<div class="row">
+<div>
   <h1>
     Course: <%= @course.name %>
   </h1>
 
-  <h4>
+  <div>
+    <%= link_to 'Edit Course', edit_admin_course_path(@course),
+                              class: "btn btn-primary" %>
+    <%= link_to "Assign Members", new_admin_course_assignment_path(@course),
+                                  class: "btn btn-primary" %>  
+    <%= link_to "Back", admin_courses_path ,
+                        class: "btn btn-primary" %>
+  </div>
+  <br>
+  <div>
+    <h3>
+      <strong>Basic Infomation:</strong>
+    </h3>
+    Name: <%= @course.name %>
+    <br>
     Description: <%= @course.description %>
-  </h4>
+    <br>
+    Created at: <%= @course.created_at %>
+    <br>
+    Last Updated at: <%= @course.created_at %>
+  </div>
+  <br>
+  <div>
+    <h3>
+      <strong>Training Status:</strong>
+    </h3>
+    <% if @course.begin_at.nil? %>
+      <strong>This is a new course</strong><br>
+      <div class="col-md-2">
+        <%= form_for [:admin, @course] do |f| %>
+          <%= f.hidden_field :begin_at, value: Time.zone.now %>
+          <%= f.submit 'Start Now', class: 'btn btn-primary' %>
+        <% end %>
+      </div>
+      <br>
+    <% elsif @course.end_at.nil? %>
+      <strong>Course is training progress.</strong><br>
+      <strong>Begin at:</strong> <%= @course.begin_at %><br>
+      <div class="col-md-2">
+        <%= form_for [:admin, @course] do |f| %>
+          <%= f.hidden_field :end_at, value: Time.zone.now %>
+          <%= f.submit 'Finish Now', class: 'btn btn-primary' %> 
+        <% end %>
+      </div>
+    <% else %>
+        <strong>Begin at:</strong> <%= @course.begin_at %><br>
+        <strong>End at:</strong> <%= @course.end_at %>
+    <% end %>
+  </div>
+  <br>
+  <div>
+    <h3>
+      <strong>List Subjects:</strong>
+    </h3>
+    <table width="300">
+      <% @subjects.each do |s| %>
+      </tr>
+      <tr>
+        <td><%= s.name %> &nbsp;</td>
+        <td><%= link_to "Show Detail", subject_path(s) %> &nbsp;</td>
+      </tr>
+      <% end %>
+    </table>
+    <%= link_to "Edit Course", edit_admin_course_path(@course) %>
+  </div>
 
-  <h3 class = "green" >
-    Begin at: <%= @course.begin_at.to_date %>
-  </h3>
-
-  <h3 class = "red" >
-    End at: <%= @course.end_at.to_date %>
-  </h3>
-</div>
-
-<table>
-  <tr><th>Subjects in course</th><th></th>
-    <% @subjects.each do |s| %>
-  </tr>
-  <tr>
-    <td><%= s.name %></td>
-    <td><%= link_to "view", s %></td>
-  </tr>
-  <% end %>
-</table>
-<%= link_to 'Edit Course', edit_admin_course_path(@course),
-    class: "btn btn-primary" %>
-
-<h1>
-  List members is attend this course
-</h1>
-<table>
-  <tr><th>Name</th><th></th></tr>
-  <% @users.each do |user| %>
-    <tr>
-      <td><%= user.name %></td>
-      <td><%= link_to "view user", user %></td>
-    </tr>
-  <% end %>
-</table>
-<%= link_to "Assign Members", new_admin_course_assignment_path(@course),
-                                  class: "btn btn-primary" %>
-<br><br>
-<div>
-  <%= link_to "Edit", edit_admin_course_path(@course) %> |
-  <%= link_to "Back", admin_courses_path %>
-</div>
+  <div>
+    <h3>
+      <strong>List Users:</strong>
+    </h3>
+    <table width="400">
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <% if user.admin? %>
+            <td><%= "Admin" %></td>
+          <% else %>
+            <td><%= "" %></td>
+          <% end %>
+          <td><%= link_to "View profile", user %></td>
+        </tr>
+      <% end %>
+    </table>
+    <%= link_to "Assign Members", new_admin_course_assignment_path(@course) %>
+  </div>
+</div>  
