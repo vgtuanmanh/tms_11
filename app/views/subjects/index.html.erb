@@ -1,0 +1,34 @@
+ <table class="table">
+  <div class="course">
+    <tr>
+      <th>
+        <b>Subject_ID</b>
+      </th>
+      <th>
+        <b>Name</b>
+      </th>
+      <th>
+        <b>Description</b>
+      </th>
+      <th>
+        <b>Finished</b>
+      </th>
+    </tr>
+    <% @subjects.each do |subject| %>
+      <tr>
+        <th>
+          <%= subject.id %> &nbsp;
+        </th>
+        <th>
+          <%= link_to subject.name, "#" %> &nbsp;
+        </th>
+        <th>
+          <%= subject.description %> &nbsp;
+        </th>
+        <th>
+          
+        </th>
+      </tr>
+    <% end %>
+  </div>
+</table>

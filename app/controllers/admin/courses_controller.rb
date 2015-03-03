@@ -19,8 +19,7 @@ class Admin::CoursesController < ApplicationController
 
   def update
     @course = Course.find params[:id]
-    @course.update_attributes course_params
-    if @course.save
+    if @course.update_attributes course_params
       flash[:success] = "Update successfully!"
       @users = @course.users
       redirect_to admin_course_path(@course)
