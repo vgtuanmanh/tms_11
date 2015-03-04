@@ -22,16 +22,20 @@ Rails.application.routes.draw do
   resources :users do
     resources :courses, only: [:index, :show]
   end
+
   resources :courses do
     resources :users, only: [:index]
   end
+
   namespace :admin do
     resources :users
     resources :courses do
       resources :assignments
     end
+
     resources :subjects
     resources :course_users
   end
   resources :courses
+  resources :activitys
 end

@@ -12,6 +12,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find params[:id]
+    @courses = current_user.courses
   end
 
   def create
@@ -34,6 +35,7 @@ class UsersController < ApplicationController
     if @user.update_attributes user_params
       flash[:success] = "Profile updated!"
       redirect_to @user
+      log_update_profile
     else
       render 'edit'
     end
@@ -61,5 +63,10 @@ class UsersController < ApplicationController
                         the other user's profile!"
       redirect_to users_path
     end
+  end
+
+  def log_update_profile
+    act = current_user.activities.new act_type: "update profile"
+    act.save
   end
 end

@@ -15,7 +15,8 @@ class User < ActiveRecord::Base
   has_many :subjects, through: :user_subjects
   has_many :user_tasks, dependent: :destroy
   has_many :tasks, through: :user_tasks
-
+  has_many :activities, dependent: :destroy
+  
   accepts_nested_attributes_for :subjects, allow_destroy: true
   accepts_nested_attributes_for :tasks, allow_destroy: true
 

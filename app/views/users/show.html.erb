@@ -14,4 +14,19 @@
   </aside>
 </div>
 
+<% @user.activities.each do |a| %>
+  <% if a.act_type == "update profile" %>
+    <ul>
+      <li>Update profile <%= time_ago_in_words(a.created_at) %> ago.</li>
+    </ul>
+  <% elsif a.act_type == "assigned" %>
+    <% current_user.courses.each do |c| %>
+      <ul>
+        <li>Course <%= c.name %> has been updated
+        <%= time_ago_in_words(a.created_at) %> ago.</li>
+      </ul>
+    <% end %>    
+  <% end %>
+<% end %>
+
 <%= render 'report' %>
