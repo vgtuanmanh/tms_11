@@ -34,10 +34,30 @@ class Course < ActiveRecord::Base
   after_save :rebuild_assignment_data
 
   def rebuild_assignment_data
-    if !self.begin_at.nil? && self.end_at.nil?
+    if self.begin_at.nil?
+      self.assignments.update_all(status: 0)
+      self.subjects.each do |s|
+        s.user_subjects.update_all(status: 0)
+        s.tasks.each do |t|
+          t.user_tasks.update_all(status: 0)
+        end
+      end
+    elsif !self.begin_at.nil? && self.end_at.nil?
       self.assignments.update_all(status: 1)
+      self.subjects.each do |s|
+        s.user_subjects.update_all(status: 1)
+        s.tasks.each do |t|
+          t.user_tasks.update_all(status: 1)
+        end
+      end
     elsif !self.begin_at.nil? && !self.end_at.nil?
       self.assignments.update_all(status: 2)
+      self.subjects.each do |s|
+        s.user_subjects.update_all(status: 2)
+        s.tasks.each do |t|
+          t.user_tasks.update_all(status: 2)
+        end
+      end
     end
   end
 end

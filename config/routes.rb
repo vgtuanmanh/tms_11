@@ -20,7 +20,8 @@ Rails.application.routes.draw do
 
   resources :subjects
   resources :users do
-    resources :courses, only: [:index, :show]
+    resources :courses
+    resources :subjects
   end
   resources :courses do
     resources :users, only: [:index]
@@ -31,7 +32,5 @@ Rails.application.routes.draw do
       resources :assignments
     end
     resources :subjects
-    resources :course_users
   end
-  resources :courses
 end

@@ -7,37 +7,29 @@
 
 <table class="table">
   <div class="course">
-    <tr>
-      <th>
-        <b>Subject_ID</b>
-      </th>
-      <th>
-        <b>Name</b>
-      </th>
-      <th>
-        <b>Description</b>
-      </th>
-      <th>
-        <b>Task</b>
-      </th>
-      <th>
-        <b>Status</b>
-      </th>
-    </tr>
+    <thead>
+      <th>Subject Name</th>
+      <th>Task</th>
+      <th>Status</th>
+    </thead>
+
     <% @course.subjects.each do |subject| %>
-      <tr>
-        <th>
-          <%= subject.id %> &nbsp;
+      <table class="table">
+        <th style="color:blue">
+          <%= subject.name %>
         </th>
-        <th>
-          <%= link_to subject.name, subject_path(subject) %> &nbsp;
+        <th style="color:blue">
+          <%= subject.tasks.count %> Tasks
         </th>
-        <th>
-          <%= subject.description %> &nbsp;
-        </th>
-        <th>
-        </th>
-        <th>
+        <th style="color:blue">
+          <% us = subject.user_subjects.find_by user_id: current_user.id %>
+          <% if us.status == 0 %>
+            Not start yet!
+          <% elsif us.status == 1 %>
+            In Training Progress
+          <% elsif us.status == 2 %>
+            Finished
+          <% end %>
         </th>
       </tr>
       <% subject.tasks.each do |task| %>
@@ -45,13 +37,18 @@
           <th>
           </th>
           <th>
+            <%= task.name %>
           </th>
-          <th>
-          </th>
-          <th>
-            <%= link_to task.name, "#" %> &nbsp;
-          </th>
-          <th>
+          <th style="color:blue">
+            <% us = subject.user_subjects.find_by user_id: current_user.id %>
+            <% ut = task.user_tasks.find_by user: current_user %>
+            <% if us.status == 0 %>
+              <br>
+            <% elsif ut.status == 1 %>
+              Training
+            <% elsif ut.status == 2 %>
+              Finished
+            <% end %>
           </th>
         </tr>
       <% end %>

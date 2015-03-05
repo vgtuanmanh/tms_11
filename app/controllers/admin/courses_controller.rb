@@ -59,6 +59,14 @@ class Admin::CoursesController < ApplicationController
         course_subjects_attributes: [:id, :subject_id, :_destroy])
   end
 
+  def editable_course
+    @course = Course.find params[:id]
+    if !@course.begin_at.nil? || !@course.end_at.nil?
+      flash[:success] = "Course is in training progress or finished! Cannot edit"
+      redirect_to admin_course_path(@course)
+    end
+  end
+
   def logged_in_user
     unless logged_in?
       store_location

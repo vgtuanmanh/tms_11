@@ -16,19 +16,25 @@
     <% @courses.each do |course| %>
       <tr>
         <th>
-          <%= link_to course.name, course_path(course) %> &nbsp;
+          <%= link_to course.name, user_course_path(current_user, course) %>
         </th>
         <th>
-          <%= link_to course.name, course_path(course) %> &nbsp;
+          <%= link_to course.description,
+              user_course_path(current_user, course) %>
         </th>
         <th>
-          <%= course.description %> &nbsp;
+          <% if course.begin_at.nil? %>
+            Not be started!
+          <% else %>
+            <%= course.begin_at %> &nbsp;
+          <% end %>
         </th>
         <th>
-          <%= course.begin_at %> &nbsp;
-        </th>
-        <th>
-          <%= course.end_at %> &nbsp;
+          <% if course.end_at.nil? %>
+            <br>
+          <% else %>
+            <%= course.end_at %> &nbsp;
+          <% end %>
         </th>
       </tr>
       <% end %>
