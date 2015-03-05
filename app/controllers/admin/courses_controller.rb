@@ -20,6 +20,7 @@ class Admin::CoursesController < ApplicationController
   def update
     @course = Course.find params[:id]
     if @course.update_attributes course_params
+      assign(@course)
       flash[:success] = "Update successfully!"
       @users = @course.users
       redirect_to admin_course_path(@course)
@@ -64,6 +65,14 @@ class Admin::CoursesController < ApplicationController
       store_location
       flash[:danger] = "Please log in!"
       redirect_to login_url
+    end
+  end
+
+  def assign(course)
+    users = course.users
+    users.each do |u|
+      act = u.activities.new act_type: "assigned"
+      act.save
     end
   end
 end

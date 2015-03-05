@@ -7,15 +7,15 @@
   </th>
   <th>
     <%= link_to_if(current_user.admin?, "Show Details",  admin_course_path(course),
-    class: 'btn btn-primary') %>
+      class: 'btn btn-primary') %>
   </th>
   <th>
     <%= link_to_if(current_user.admin?, "Edit",  edit_admin_course_path(course),
-    class: 'btn btn-primary') %>
+      class: 'btn btn-primary') %>
   </th>
   <th>
     <%= link_to_if(current_user.admin?, "Show Members",
-    admin_course_assignments_path(course), class: "btn btn-primary") %> &nbsp;
+      admin_course_assignments_path(course), class: "btn btn-primary") %> &nbsp;
   </th>
   <th>
     <%= link_to_if(current_user.admin?, "Delete", 

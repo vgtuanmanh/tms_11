@@ -9,15 +9,13 @@
         <th>Description</th>
         <th>Begin at</th>
         <th>End at</th>
-        <th colspan="4"></th>
+        <th>History</th>
+        <th colspan="5"></th>
       </tr>
     </thead>
     <tbody>
     <% @courses.each do |course| %>
       <tr>
-        <th>
-          <%= link_to course.name, course_path(course) %> &nbsp;
-        </th>
         <th>
           <%= link_to course.name, course_path(course) %> &nbsp;
         </th>
@@ -30,8 +28,12 @@
         <th>
           <%= course.end_at %> &nbsp;
         </th>
+        <th>
+          <%= link_to "Show Activity", activitys_path %>
+        </th>
       </tr>
       <% end %>
     </tbody>
   </div>
 </table>
+
