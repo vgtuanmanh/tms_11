@@ -1,6 +1,7 @@
 class Admin::CoursesController < ApplicationController
   before_action :logged_in_user
   before_action :is_admin_user, only: [:create, :destroy, :new]
+  before_action :editable_course, only: [:edit]
 
   def new
     @course = Course.new
@@ -65,6 +66,14 @@ class Admin::CoursesController < ApplicationController
       store_location
       flash[:danger] = "Please log in!"
       redirect_to login_url
+    end
+  end
+
+  def editable_course
+    @course = Course.find params[:id]
+    if !@course.begin_at.nil? || !@course.end_at.nil?
+      flash[:success] = "Course is in training progress or finished! Cannot edit"
+      redirect_to admin_course_path(@course)
     end
   end
 

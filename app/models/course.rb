@@ -4,6 +4,14 @@ class Course < ActiveRecord::Base
   has_many :assignments, dependent: :destroy
   has_many :users, through: :assignments
 
+  has_many :user_subjects, dependent: :destroy
+  has_many :user_tasks, dependent: :destroy
+  has_many :tasks, through: :user_tasks
+
+  accepts_nested_attributes_for :user_subjects, allow_destroy: true
+  accepts_nested_attributes_for :user_tasks, allow_destroy: true
+  accepts_nested_attributes_for :tasks, allow_destroy: true
+
   validates :name,  presence: true, length: {maximum: 64}
   validates :description, presence: true, length: {maximum: 512}
 
@@ -34,10 +42,31 @@ class Course < ActiveRecord::Base
   after_save :rebuild_assignment_data
 
   def rebuild_assignment_data
-    if !self.begin_at.nil? && self.end_at.nil?
+    if self.begin_at.nil?
+      self.assignments.update_all(status: 0)
+      self.subjects.each do |s|
+        s.user_subjects.update_all(status: 0)
+        s.tasks.each do |t|
+          t.user_tasks.update_all(status: 0)
+        end
+      end
+    elsif !self.begin_at.nil? && self.end_at.nil?
       self.assignments.update_all(status: 1)
+      self.subjects.each do |s|
+        s.user_subjects.update_all(status: 1)
+        s.tasks.each do |t|
+          t.user_tasks.update_all(status: 1)
+        end
+      end
     elsif !self.begin_at.nil? && !self.end_at.nil?
       self.assignments.update_all(status: 2)
+      self.subjects.each do |s|
+        s.user_subjects.update_all(status: 2)
+        s.tasks.each do |t|
+          t.user_tasks.update_all(status: 2)
+        end
+      end
+
     end
   end
 end

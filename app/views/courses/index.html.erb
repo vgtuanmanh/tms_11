@@ -17,7 +17,7 @@
     <% @courses.each do |course| %>
       <tr>
         <th>
-          <%= link_to course.name, course_path(course) %> &nbsp;
+          <%= link_to course.name, user_course_path(@user, course) %> &nbsp;
         </th>
         <th>
           <%= course.description %> &nbsp;
