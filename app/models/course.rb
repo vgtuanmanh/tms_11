@@ -10,34 +10,26 @@ class Course < ActiveRecord::Base
   accepts_nested_attributes_for :course_subjects, allow_destroy: true
   accepts_nested_attributes_for :users, allow_destroy: true
 
-  after_save :assign_subjects_to_user
-  after_save :assign_users_to_subject
-
-  def assign_subjects_to_user
-    self.users.each do |user|
-      user.update_attributes subjects: self.subjects
-      user.save
-    end
-  end
-
-  def assign_users_to_subject
-    self.subjects.each do |subject|
-      subject.update_attributes users: self.users
-      subject.save
-    end
-  end
-
   def course_subject_id subject
     CourseSubject.where(course: self, subject: subject).first.try :id
   end
 
-  after_save :rebuild_assignment_data
+  after_save :rebuild_assignment_data, :rebuild_user_subjects
 
   def rebuild_assignment_data
-    if !self.begin_at.nil? && self.end_at.nil?
+    if self.begin_at.nil?
+      self.assignments.update_all(status: 0)
+    elsif self.end_at.nil?
       self.assignments.update_all(status: 1)
-    elsif !self.begin_at.nil? && !self.end_at.nil?
+    else
       self.assignments.update_all(status: 2)
     end
+  end
+
+  def rebuild_user_subjects
+    us1 = UserSubject.where course_id: id
+    us2 = UserSubject.where course_id: id, user: users, subject: subjects
+    us3 = us1 - us2
+    UserSubject.destroy_all id: us3.map(&:id)
   end
 end
